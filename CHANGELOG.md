@@ -6,6 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.5]
+
+**Added**
+
+- More `tfe.keras` functionality, including BatchNormalization.
+- `channels_last` support for `tfe.layers.Batchnorm`
+- `tfe.convert` now supports conversions for Ops with multiple output tensors.
+
+**Changed**
+
+- All test files have been moved into the tf_encrypted namespace next to their corresponding functionality in line with the TensorFlow style guide.
+
+**Fixed**
+
+- A bug in `tfe.convert` where tf.split was only returning the first element of the output tensor array.
+- An ImportError for users of TF 1.14+.
+- A bug where `__radd__` and `__rsub__` were actually computing `__add__` and `__sub__`.
+- An overzealous AssertionError in the tfe.serving.QueueServer.
+
 ## [0.5.4]
 
 **Added**
@@ -34,7 +53,7 @@ Migration to third party organization, including on [GitHub](https://github.com/
 **Added**
 
 - We now support TensorFlow 1.13.1.  We plan to support to 2.0+ in a future release.
-- Am example of performing secure aggregation for federated learning is now available in the `examples/federated-learning/` directory.
+- An example of performing secure aggregation for federated learning is now available in the `examples/federated-learning/` directory.
 - New scripts in `bin/` for launching TF Encrypted jobs on local machines and cloud clusters. We have primarily used these in concert with GCP & GKE.
 - The tensor seeding from 0.4.0 has been implemented for all BackingTensor types and protocols.
 - A variety of TF Ops have been added to the Converter, including an example of a "special op" (`required_space_to_batch_paddings`) that converts an entire subgraph of an imported Tensorflow graph into TFE instead of converting nodes in the original TensorFlow graph one-by-one. The converter will be generalized and documented much more in a future release.

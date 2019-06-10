@@ -23,10 +23,10 @@ project = 'tf-encrypted'
 copyright = '2019, The TF Encrypted Authors'
 author = 'The TF Encrypted Authors'
 
-# The short X.Y version
-version = '0.5.4'
+# The short X.Y.Z version
+version = '0.5.5'
 # The full version, including alpha/beta/rc tags
-release = '0.5.4'
+release = '0.5.5-rc0'
 
 
 # -- General configuration ---------------------------------------------------
