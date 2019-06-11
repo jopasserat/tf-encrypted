@@ -19,7 +19,6 @@ session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
 class ModelOwner:
   """Contains code meant to be executed by some `ModelOwner` Player.
-
   Args:
     player_name: `str`, name of the `tfe.player.Player`
                  representing the model owner.
@@ -43,7 +42,6 @@ class ModelOwner:
 
   def _build_model(self, x, y):
     """Build the model function for federated learning.
-
     Includes loss calculation and backprop.
     """
     w0 = self.w0.read_value()
@@ -64,7 +62,6 @@ class ModelOwner:
 
   def build_update_step(self, x, y):
     """Build a graph representing a single update step.
-
     This method will be called once by all data owners
     to create a local gradient computation on their machine.
     """
@@ -94,10 +91,8 @@ class ModelOwner:
 
   def update_model(self, *grads):
     """Perform a single update step.
-
     This will be performed on the ModelOwner device
     after securely aggregating gradients.
-
     Args:
       *grads: `tf.Variables` representing the federally computed gradients.
     """
@@ -120,7 +115,6 @@ class ModelOwner:
 
 class DataOwner:
   """Contains methods meant to be executed by a data owner.
-
   Args:
     player_name: `str`, name of the `tfe.player.Player`
                  representing the data owner
