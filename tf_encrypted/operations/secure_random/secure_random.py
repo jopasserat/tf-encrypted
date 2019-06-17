@@ -10,18 +10,25 @@ import tf_encrypted as tfe
 
 logger = logging.getLogger('tf_encrypted')
 dirname = os.path.dirname(tfe.__file__)
-so_name = '{dn}/operations/secure_random/secure_random_module_tf_{tfv}.so'
-shared_object = so_name.format(dn=dirname, tfv=tf.__version__)
+so_file = '{dn}/operations/secure_random/secure_random_module_tf_{tfv}.so'.format(
+    dn=dirname,
+    tfv=tf.__version__,
+)
 
 try:
-  secure_random_module = tf.load_op_library(shared_object)
-except NotFoundError:
+  secure_random_module = tf.load_op_library(so_file)
+except NotFoundError as ex:
   logger.warning(
       ("Falling back to insecure randomness since the required custom op "
-       "could not be found for the installed version of TensorFlow (%s). "
-       "Fix this by compiling custom ops."), tf.__version__)
+       "could not be found for the installed version of TensorFlow. Fix this "
+       "by compiling custom ops. "
+       "Missing file was '%s', error was \"%s\"."), so_file, ex)
   secure_random_module = None
-
+except Exception as ex:  # pylint: disable=broad-except
+  logger.error(
+      ("Falling back to insecure randomness since an error occurred loading "
+       "the required custom op: \"%s\"."), ex)
+  secure_random_module = None
 
 def supports_secure_randomness():
   return secure_random_module is not None
